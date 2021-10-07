@@ -24,9 +24,10 @@ def retrieve_profile(userID):
                 string2 += ", "
         return string1 + string2
 
-@profiles_api.route("/profiles", methods = ["POST"])
+@profiles_api.route("/", methods = ["POST"])
 def create_profile():
     content = request.get_json()
+    content["scores"] = []
     db.append(content)
     name = content["name"]
     return "Successfully added " + name + " to database! :)"
