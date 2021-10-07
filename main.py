@@ -17,4 +17,4 @@ def welcome_message():
 
 if __name__ == "__main__":
     app.run("localhost", port=8080) # Testing on own computer
-	app.run("0.0.0.0", port=8080) # Deploying
+    app.run("0.0.0.0", port=8080) # Deploying
