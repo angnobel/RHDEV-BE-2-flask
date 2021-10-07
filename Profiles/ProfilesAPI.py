@@ -8,7 +8,11 @@ profiles_api = Blueprint("profiles", __name__)
 
 @profiles_api.route("/<int:userID>", methods = ["GET"])
 def retrieve_profile(userID):
-    profile = db[userID]
+    try:
+         profile = db[userID]
+    except IndexError:
+        return "Sorry, profile does not exist."
+    
     name = profile["name"]
 
     if name == "@":
@@ -34,8 +38,11 @@ def create_profile():
 
 @profiles_api.route("/<int:userID>", methods = ["DELETE"])
 def delete_profile(userID):
-    profile = db[userID]
-
+    try:
+         profile = db[userID]
+    except IndexError:
+        return "Sorry, profile does not exist."
+    
     if profile["name"] == "@":
         return "Sorry, profile does not exist."
     
@@ -45,7 +52,11 @@ def delete_profile(userID):
 
 @profiles_api.route("/<int:userID>/score", methods = ["GET"])
 def get_min_score(userID):
-    profile = db[userID]
+    try:
+         profile = db[userID]
+    except IndexError:
+        return "Sorry, profile does not exist."
+    
     score_list = profile["scores"]
     
     if profile["name"] == "@":
@@ -53,7 +64,12 @@ def get_min_score(userID):
     if len(profile["scores"]) == 0:
         return "You do not have any recorded results :("
 
-    min_score = int(request.args.get('minScore'))
+    min_score = request.args.get('minScore')
+    if min_score==None:
+        min_score = 0
+    else:
+        min_score = int(min_score)
+    
     filtered_score_list = list(filter( lambda score:int(score) >= min_score , score_list))
     num_of_scores = len(filtered_score_list)
     if num_of_scores == 0:
