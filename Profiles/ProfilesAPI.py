@@ -10,15 +10,19 @@ profiles_api = Blueprint("profiles", __name__)
 def retrieve_profile(userID):
     profile = db[userID]
     name = profile["name"]
-    scores = profile["scores"]
 
-    string1 = "Hello " + str(name)
-    string2 = "Your scores are:\n" + ""
-    for score in scores:
-        string2 += str(score)
-        if score != scores[-1]:
-            string2 += ", "
-    return string1 + string2
+    if name == "@":
+        return "Sorry, profile does not exist."
+    else:
+        scores = profile["scores"]
+
+        string1 = "Hello " + str(name)
+        string2 = "Your scores are:\n" + ""
+        for score in scores:
+            string2 += str(score)
+            if score != scores[-1]:
+                string2 += ", "
+        return string1 + string2
 
 @profiles_api.route("/profiles", methods = ["POST"])
 def create_profile():
