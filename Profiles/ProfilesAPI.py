@@ -11,22 +11,20 @@ def retrieve_profile(userID):
     try:
          profile = db[userID]
     except IndexError:
-        return "Sorry, profile does not exist."
+        return {"message": "fail", "data": "profile not found"}
     
     name = profile["name"]
-
     if name == "@":
-        return "Sorry, profile does not exist."
+        return {"message": "fail", "data": "profile not found"}
 
     scores = profile["scores"]
 
-    string1 = "Hello " + str(name) + "!\n\n"
-    string2 = "Your scores are:\n" + ""
-    for score in scores:
-        string2 += str(score)
-        if score != scores[-1]:
-            string2 += ", "
-    return string1 + string2
+    return {"message": "success",
+    "data": {
+        "name":name,
+        "scores":scores
+    }
+    }
 
 @profiles_api.route("/profiles", methods = ["POST"])
 def create_profile():
@@ -34,35 +32,33 @@ def create_profile():
     content["scores"] = []
     db.append(content)
     name = content["name"]
-    return "Successfully added " + name + " to database! :)"
+    return {"message": "success", "data": "profile added"}
 
 @profiles_api.route("/<int:userID>", methods = ["DELETE"])
 def delete_profile(userID):
     try:
          profile = db[userID]
     except IndexError:
-        return "Sorry, profile does not exist."
+        return {"message": "fail", "data": "profile not found"}
     
     if profile["name"] == "@":
-        return "Sorry, profile does not exist."
+        return {"message": "fail", "data": "profile not found"}
     
     name = profile["name"]
     profile["name"] = "@"
-    return "Sorry " + name + ", you've been thanosSnapped"
+    return {"message": "success", "data": "profile deleted"}
 
 @profiles_api.route("/<int:userID>/score", methods = ["GET"])
 def get_min_score(userID):
     try:
          profile = db[userID]
     except IndexError:
-        return "Sorry, profile does not exist."
+        return {"message": "fail", "data": "profile not found"}
     
     score_list = profile["scores"]
     
     if profile["name"] == "@":
-        return "Sorry, profile does not exist."
-    if len(profile["scores"]) == 0:
-        return "You do not have any recorded results :("
+        return {"message": "fail", "data": "profile not found"}
 
     min_score = request.args.get('minScore')
     if min_score==None:
@@ -73,10 +69,6 @@ def get_min_score(userID):
     filtered_score_list = list(filter( lambda score:int(score) >= min_score , score_list))
     num_of_scores = len(filtered_score_list)
     if num_of_scores == 0:
-        return "No scores equal to, or more than " + str(min_score) + " :'("
-    string2 = "There are a total of " + str(num_of_scores) + ". \nHere they are!: \n"
-    for score in filtered_score_list:
-        string2 += str(score)
-        if score != filtered_score_list[-1]:
-            string2 += ", "
-    return string2
+        return {"message": "success", "data": "no scores found"}
+
+    return {"message": "success", "data": {"scores": filtered_score_list}}
