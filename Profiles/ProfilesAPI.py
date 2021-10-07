@@ -53,7 +53,7 @@ def get_min_score(userID):
     if len(profile["scores"]) == 0:
         return "You do not have any recorded results :("
 
-    min_score = request.args.get('minScore')
+    min_score = int(request.args.get('minScore'))
     filtered_score_list = list(filter( lambda score:int(score) >= min_score , score_list))
     num_of_scores = len(filtered_score_list)
     if num_of_scores == 0:
