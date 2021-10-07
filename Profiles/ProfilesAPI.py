@@ -73,7 +73,7 @@ def get_min_score(userID):
     filtered_score_list = list(filter( lambda score:int(score) >= min_score , score_list))
     num_of_scores = len(filtered_score_list)
     if num_of_scores == 0:
-        return "No scores found above " + str(min_score-1) + " :'("
+        return "No scores equal to, or more than " + str(min_score) + " :'("
     string2 = "There are a total of " + str(num_of_scores) + ". \nHere they are!: \n"
     for score in filtered_score_list:
         string2 += str(score)
