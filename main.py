@@ -15,3 +15,6 @@ app.register_blueprint(auth_api, url_prefix="/auth")
 def welcome_message():
     return "Good day filthy peaasant!"
 
+if __name__ == "__main__":
+    app.run("localhost", port=8080) # Testing on own computer
+	app.run("0.0.0.0", port=8080) # Deploying
