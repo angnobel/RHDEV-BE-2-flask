@@ -30,3 +30,10 @@ def create_profile():
     db.append(content)
     name = content["name"]
     return "Successfully added " + name + " to database! :)"
+
+@profiles_api.route("/<int:userID>", methods = ["DELETE"])
+def delete_profile(userID):
+    profile = db[userID]
+    name = profile["name"]
+    profile["name"] = "@"
+    return "Sorry " + name + ", you've been thanosSnapped"
