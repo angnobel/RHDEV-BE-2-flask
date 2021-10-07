@@ -12,10 +12,11 @@ def retrieve_profile(userID):
     name = profile["name"]
     scores = profile["scores"]
 
-    string1 = "Hello " + str(name) + "!\n\n" + "Your scores are:\n"
-    string2 = ""
+    string1 = "Hello " + str(name)
+    string2 = "Your scores are:\n" + ""
     for score in scores:
         string2 += str(score)
         if score != scores[-1]:
             string2 += ", "
     return string1 + string2
+
