@@ -16,7 +16,7 @@ def retrieve_profile(userID):
     else:
         scores = profile["scores"]
 
-        string1 = "Hello " + str(name)
+        string1 = "Hello " + str(name) + "!\n\n"
         string2 = "Your scores are:\n" + ""
         for score in scores:
             string2 += str(score)
