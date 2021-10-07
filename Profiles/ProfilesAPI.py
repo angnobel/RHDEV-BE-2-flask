@@ -1,5 +1,5 @@
 # Profile API here
-from flask import Blueprint
+from flask import Blueprint, request
 import sys
 from db import db
 sys.path.append("../")
@@ -20,3 +20,9 @@ def retrieve_profile(userID):
             string2 += ", "
     return string1 + string2
 
+@profiles_api.route("/profiles", methods = ["POST"])
+def create_profile():
+    content = request.get_json()
+    db.append(content)
+    name = content["name"]
+    return "Successfully added " + name + " to database! :)"
