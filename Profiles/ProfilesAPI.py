@@ -46,3 +46,19 @@ def profiles_id(id):
                 return {"status": "success"}
         
         return {"status": "error", "message": "profile not found"}
+
+@profiles_api.route("/<string:id>/score", methods=["GET"])
+def profiles_score(id):
+    if request.method == "GET":
+        for i in db:
+            # checks if id in the database
+            if i["name"] == id:
+                result = i["scores"]
+
+                # filters scores below minScore if input as query parameter
+                if "minScore" in request.args.keys():
+                    result = list(filter(lambda x: x > int(request.args["minScore"]), result))
+
+                return {"status": "success", "scores": result}
+
+        return {"status": "error", "message": "profile not found"}
