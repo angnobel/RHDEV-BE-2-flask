@@ -188,3 +188,79 @@ Accepts optional query parameter minScore, which returns all scores above minSco
 ```
 
 ---
+
+
+# Auth  
+
+## POST /register<br>  
+
+Stores a username and hashedPassword in a local array.
+
+**Function used:** `register()`  
+**Source:** AuthAPI.py 
+
+**Parameters:**   
+
+<table>
+    <tr>
+        <td> username (required)</td>
+        <td> String </td>
+        <td> Username of user</td>
+    </tr>
+    <tr>
+        <td> passwordHash (required)</td>
+        <td> String </td>
+        <td> Hash of user password</td>
+    </tr>
+</table> 
+
+**Response:** Success message upon successful registration, or error message if invalid body  
+Example: 
+```
+{
+    "status": "success",
+}
+```
+```
+{
+    "status": "error",
+    "message": "invalid body"
+}
+```
+
+## POST /login<br>  
+
+Checks if provided information is valid and returns a JWT token and success message.
+
+**Function used:** `login()`  
+**Source:** AuthAPI.py 
+
+**Parameters:**   
+
+<table>
+    <tr>
+        <td> username (required)</td>
+        <td> String </td>
+        <td> Username of user</td>
+    </tr>
+    <tr>
+        <td> passwordHash (required)</td>
+        <td> String </td>
+        <td> Hash of user password</td>
+    </tr>
+</table> 
+
+**Response:** JWT token and successful message, or error message if invalid body input
+Example: 
+```
+{
+    "status": "success",
+    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImNoYXJsZXMiLCJwYXNzd29yZEhhc2giOiIxMjM0NSJ9.OWBiNWvJ1_9EKUCfnj-HxdnfKYA-_Uf4Bl_jrWtUc3U"
+}
+```
+```
+{
+    "status": "error",
+    "message": "invalid body"
+}
+```
