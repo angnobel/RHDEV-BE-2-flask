@@ -1,29 +1,122 @@
-# RHDEV-BE-2-flask
-Homewwork template for BE training lesson 2: Flask and web servers
+# Main
 
-Setup a basic API to simulate a website that tracks profiles and scores for exams
+## GET /
 
-A simulated db is provided. Note that the db will not be updated between runs
-    In main:
-GET / homepage that returns a welcome message
-    In profiles API (/profiles prefix)
-GET /{id} to retrieve the name and all scores of a profile
-POST /profiles to create a new profile (name only)
-DELETE /{id} to delete a profile
-GET /{id}/score?minScore= to retrieve all scores of a profile, above the min score
-    In authentication API (/auth prefix)
-POST /register stores a username and hashedPassword (given as hashed)
-Store it in a local array
-Login /login checks if the provided information is valid and return a jwt token + success message
+Homepage that returns a welcome message.  
 
-Give a reasonable return format with appropriate status code and messages.
-{“message” : “success/fail”, “data”:””}
-Also submit a simplified documentation of your API. You can use the format below.
+**Function used:** `main()`  
+**Source:** main.py 
+
+**Parameters:** None 
+
+**Response:** String containing welcome message  
+Example: 
+```
+Hello, and welcome!
+```  
+
+---
 
 
+# Profiles
 
-OPTIONALS: 
-Add environmental variables into the system (for jwt signing secret)
-In the login route, check if jwt token is provided and valid
-Assume URL argument has token “?token=sdlkaskdnalsdnsald”
-See if username and password field arre present
+## GET /profiles<br>
+
+Returns all profiles that exist in the database.
+
+**Function used:** `profiles()`  
+**Source:** ProfilesAPI.py 
+
+**Parameters:** None  
+
+**Response:** List of JSON objects  
+**Example:**   
+```
+{  
+    "profiles": [  
+        {  
+            "name": "Nobel",  
+            "scores": [  
+                1,  
+                2,  
+                3,  
+                4,  
+                5  
+            ]  
+        },  
+        {  
+            "name": "Richard",  
+            "scores": [  
+                5,  
+                4,  
+                3,  
+                2,  
+                1  
+            ]  
+        }  
+    ],  
+
+    "status": "success"  
+}
+```  
+
+---
+
+## POST /profiles<br>  
+
+Creates a new profile in the db.
+
+**Function used:** `profiles()`  
+**Source:** main.py 
+
+**Parameters:**   
+
+<table>
+    <tr>
+        <td>name (required)</td>
+        <td> String </td>
+        <td> Name of the new profile</td>
+    </tr>
+</table> 
+
+**Response:** String containing new profile's name  
+Example: 
+```
+{"status": "success", "new_profile": "charles"}
+```
+
+---
+
+## GET /profiles/{id}<br>
+
+Checks if the searched profile exists in the database.  
+Returns the profile and its associated data if it exists.
+
+**Function used:** `profiles_id(id)`  
+**Source:** ProfilesAPI.py 
+
+**Parameters:** None  
+
+**Response:** JSON object of the found profile, or error message if profile not found.  
+**Example:**   
+```
+{
+    "data": {
+        "name": "Nobel",
+        "scores": [
+            1,
+            2,
+            3,
+            4,
+            5
+        ]
+    },
+
+    "status": "success"
+}
+```  
+```
+{"status": "error", "message": "profile not found"}
+```
+
+---
