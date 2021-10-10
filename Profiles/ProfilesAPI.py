@@ -28,14 +28,21 @@ def profiles():
         return {"status": "success", "data": db}
 
     
-@profiles_api.route("/<string:id>", methods=["GET"])
+@profiles_api.route("/<string:id>", methods=["GET", "DELETE"])
 def profiles_id(id):
     if request.method == "GET":
         # checks if id in the database
-        print(id)
         for i in db:
-            print(i["name"])
             if i["name"] == id:
                 return {"status": "success", "data": i}
+        
+        return {"status": "error", "message": "profile not found"}
+
+    if request.method == "DELETE":
+        # checks if id in the database
+        for i in db:
+            if i["name"] == id:
+                db.remove(i)
+                return {"status": "success"}
         
         return {"status": "error", "message": "profile not found"}

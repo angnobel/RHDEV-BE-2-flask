@@ -67,7 +67,7 @@ Returns all profiles that exist in the database.
 Creates a new profile in the db.
 
 **Function used:** `profiles()`  
-**Source:** main.py 
+**Source:** ProfilesAPI.py 
 
 **Parameters:**   
 
@@ -117,6 +117,31 @@ Returns the profile and its associated data if it exists.
 ```  
 ```
 {"status": "error", "message": "profile not found"}
+```
+
+---
+
+## DELETE /profiles/{id}<br>
+
+Deletes the input profile from the database if it exists.  
+
+**Function used:** `profiles_id(id)`  
+**Source:** ProfilesAPI.py 
+
+**Parameters:** None  
+
+**Response:** Success status code upon deletion, or error message if profile not found.  
+**Example:**   
+```
+{
+    "status": "success"
+}
+```  
+```
+{
+    "message": "profile not found",
+    "status": "error"
+}
 ```
 
 ---
