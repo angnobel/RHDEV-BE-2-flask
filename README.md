@@ -82,7 +82,10 @@ Creates a new profile in the db.
 **Response:** String containing new profile's name  
 Example: 
 ```
-{"status": "success", "new_profile": "charles"}
+{
+    "status": "success",
+    "new_profile": "charles"
+}
 ```
 
 ---
@@ -116,7 +119,10 @@ Returns the profile and its associated data if it exists.
 }
 ```  
 ```
-{"status": "error", "message": "profile not found"}
+{
+    "status": "error",
+    "message": "profile not found"
+}
 ```
 
 ---
