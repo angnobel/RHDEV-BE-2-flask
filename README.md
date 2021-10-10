@@ -145,6 +145,43 @@ Deletes the input profile from the database if it exists.
 ```  
 ```
 {
+    "status": "error"
+    "message": "profile not found",
+}
+```
+
+---
+
+## GET /profiles/{id}/score<br> GET /profiles/{id}/score?minScore={minScoreValue}<br>   
+
+Returns the scores of the input profile from the database if it exists.  
+Accepts optional query parameter minScore, which returns all scores above minScore for the input profile.
+
+**Function used:** `profiles_score(id)`  
+**Source:** ProfilesAPI.py 
+
+**Parameters:**  
+<table>
+    <tr>
+        <td> minScore (optional)</td>
+        <td> String </td>
+        <td> Minimum score, for which only scores above it will be returned</td>
+    </tr>
+</table>  
+
+**Response:** List of scores, or error message if profile not found.  
+**Example:**   
+```
+{
+    "scores": [
+        5,
+        4
+    ],
+    "status": "success"
+}
+```  
+```
+{
     "message": "profile not found",
     "status": "error"
 }
