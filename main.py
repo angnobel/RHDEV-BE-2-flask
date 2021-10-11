@@ -17,12 +17,6 @@ def main():
 
 # In main: GET / homepage that returns a welcome message
 # 
-# In profiles API (/profiles prefix) 
-# GET /{id} to retrieve the name and all scores of a profile 
-# POST /profiles to create a new profile (name only) 
-# DELETE /{id} to delete a profile 
-# GET /{id}/score?minScore= to retrieve all scores of a profile, above the min score 
-# 
 # In authentication API (/auth prefix) 
 # POST /register stores a username and hashedPassword (given as hashed)
 # 
