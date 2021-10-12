@@ -39,7 +39,15 @@ def deleteProfile(id):
             return "User has been deleted"
             
     return "User does not exist"
-     
+
+@profiles_api.route('/<string:id>/score', methods = ["GET"])
+def profileScore(id):
+    for set in db:
+        if id == set["name"]:
+            allScores = set["scores"]
+        
+    aboveMinScore = list(filter(lambda x: x > int(request.args.get("minScore"))), allScores)
+    return aboveMinScore
 # In profiles API (/profiles prefix) 
 # GET /{id} to retrieve the name and all scores of a profile 
 # POST /profiles to create a new profile (name only) 
