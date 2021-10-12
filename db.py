@@ -1,4 +1,7 @@
 # Simulated db
+
+
+
 db = [{
     "name": "Nobel",
     "scores": [1, 2, 3, 4, 5]
@@ -9,3 +12,10 @@ db = [{
     "name": "Hui Hui",
     "scores": [9, 29, 34]
 }]
+
+credentials = []
+
+auth_secret_key = "425j2jkjdjfk3*38bjb3#*@!)Buibidj2j90$(Tbuiwurbirbjkkjbfkjadkjsf"
+
+
+
