@@ -1,5 +1,6 @@
 # Profile API here
 from flask import Blueprint
+from flask import request
 import sys
 from db import db
 sys.path.append("../")
@@ -13,6 +14,18 @@ def searchProfiles(id):
             return set
     return "Wrong id" #What type of error should I throw in here
 
+@profiles_api.route("/profiles", methods = ["POST"])
+def createProfile():
+    for set in db:
+        if request.form["name"] == set["name"]:
+            return "User already exist"
+
+    db.append
+    ({
+        "name": request.form["name"],
+        "score": [] #empty because it creates name only 
+    })
+    return "Profile created"
 
 
 # In profiles API (/profiles prefix) 
