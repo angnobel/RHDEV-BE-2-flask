@@ -1,6 +1,7 @@
 # Profile API here
 from flask import Blueprint
 from flask import request
+from flask import flash
 import sys
 from db import db
 sys.path.append("../")
@@ -27,7 +28,18 @@ def createProfile():
     })
     return "Profile created"
 
-
+@profiles_api.route('/<string:id>', methods = ["DELETE"])
+def deleteProfile(id):
+    flash("Are you sure you want to delete profile?")
+    flash("Please note that once deleted, lost data cannot be recovered. Are you sure?")
+    # theres not much in the documentation for creating these messages. 
+    for set in db:
+        if id == set["name"]:
+            db.remove(set)
+            return "User has been deleted"
+            
+    return "User does not exist"
+     
 # In profiles API (/profiles prefix) 
 # GET /{id} to retrieve the name and all scores of a profile 
 # POST /profiles to create a new profile (name only) 
