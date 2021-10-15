@@ -11,16 +11,16 @@ def retrieve_profile(userID):
     try:
          profile = db[userID]
     except IndexError:
-        return {"message": "fail", "data": "profile not found"}
+        return {"status": "fail", "message": "profile not found"}
     
     name = profile["name"]
     if name == "@":
-        return {"message": "fail", "data": "profile not found"}
+        return {"status": "fail", "message": "profile not found"}
 
     scores = profile["scores"]
 
-    return {"message": "success",
-    "data": {
+    return {"status": "success",
+    "message": {
         "name":name,
         "scores":scores
     }
@@ -32,33 +32,33 @@ def create_profile():
     content["scores"] = []
     db.append(content)
     name = content["name"]
-    return {"message": "success", "data": "profile added"}
+    return {"status": "success", "message": "profile added"}
 
 @profiles_api.route("/<int:userID>", methods = ["DELETE"])
 def delete_profile(userID):
     try:
          profile = db[userID]
     except IndexError:
-        return {"message": "fail", "data": "profile not found"}
+        return {"status": "fail", "message": "profile not found"}
     
     if profile["name"] == "@":
-        return {"message": "fail", "data": "profile not found"}
+        return {"status": "fail", "message": "profile not found"}
     
     name = profile["name"]
     profile["name"] = "@"
-    return {"message": "success", "data": "profile deleted"}
+    return {"status": "success", "message": "profile deleted"}
 
 @profiles_api.route("/<int:userID>/score", methods = ["GET"])
 def get_min_score(userID):
     try:
          profile = db[userID]
     except IndexError:
-        return {"message": "fail", "data": "profile not found"}
+        return {"status": "fail", "message": "profile not found"}
     
     score_list = profile["scores"]
     
     if profile["name"] == "@":
-        return {"message": "fail", "data": "profile not found"}
+        return {"status": "fail", "message": "profile not found"}
 
     min_score = request.args.get('minScore')
     if min_score==None:
@@ -69,6 +69,6 @@ def get_min_score(userID):
     filtered_score_list = list(filter( lambda score:int(score) >= min_score , score_list))
     num_of_scores = len(filtered_score_list)
     if num_of_scores == 0:
-        return {"message": "success", "data": "no scores found"}
+        return {"status": "success", "message": "no scores found"}
 
-    return {"message": "success", "data": {"scores": filtered_score_list}}
+    return {"status": "success", "message": {"scores": filtered_score_list}}
