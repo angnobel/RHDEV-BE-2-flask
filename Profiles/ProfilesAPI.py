@@ -42,10 +42,12 @@ def deleteProfile(id):
 
 @profiles_api.route('/<string:id>/score', methods = ["GET"])
 def profileScore(id):
+    allScores = []
     for set in db:
         if id == set["name"]:
             allScores = set["scores"]
-        
+    if (allScores == []):
+        return "No scores are found"    
     aboveMinScore = list(filter(lambda x: x > int(request.args.get("minScore"))), allScores)
     return aboveMinScore
 # In profiles API (/profiles prefix) 

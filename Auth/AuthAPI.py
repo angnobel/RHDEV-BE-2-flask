@@ -13,6 +13,8 @@ auth_api = Blueprint("auth", __name__)
 temporaryLocalArr = []
 @auth_api.route('/register', methods = ["POST"])
 def register():
+    if (request.args.get("username") == None or request.args.get("hashedPassword") == None):
+        return "Error, Invalid body"
     temporaryLocalArr.append({
     "username": request.args.get("username"),
     "hashedPassword": request.args.get("hashedPassword")
