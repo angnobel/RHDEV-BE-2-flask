@@ -71,4 +71,4 @@ def get_min_score(userID):
     if num_of_scores == 0:
         return {"status": "success", "message": "no scores found"}
 
-    return {"status": "success", "message": {"scores": filtered_score_list}}
+    return {"status": "success", "data": {"scores": filtered_score_list}}
