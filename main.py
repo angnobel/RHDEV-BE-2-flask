@@ -17,9 +17,6 @@ def main():
 
 # In main: GET / homepage that returns a welcome message
 # 
-# In authentication API (/auth prefix) 
-# POST /register stores a username and hashedPassword (given as hashed)
-# 
-# Store it in a local array Login /login checks if the provided information is valid and return a jwt token + success message
+
 
 # Write your flask code here
