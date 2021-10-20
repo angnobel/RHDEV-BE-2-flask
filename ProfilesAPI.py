@@ -3,12 +3,10 @@ from flask import request
 from flask import Blueprint
 from db import datab
 
-app = Flask(__name__)
-# profile = Blueprint('profile',__name__,url_prefix='/profiles')
+profile = Blueprint('profile',__name__,url_prefix='/profiles')
 
 
-# @profile.route('/profiles/GET/<string:name>/', methods=['GET'])
-@app.route('/profiles/GET/<string:name>/', methods=['GET'])
+@profile.route('/GET/<string:name>/', methods=['GET'])
 def get_profile(name):
     GET_profile = {}
     for obj in datab:
@@ -19,15 +17,13 @@ def get_profile(name):
     else:
         return GET_profile 
 
-# @profile.route('/profiles/POST/<string:name>/', methods=["POST"])
-@app.route('/profiles/POST/<string:name>', methods=["POST", "GET"])
+@profile.route('/POST/<string:name>/', methods=["POST","GET"])
 def create_profile(name):
-    user_dict ={"name" : name} 
+    user_dict ={"name" : name,"scores": []} 
     datab.append(user_dict)
     return f"user {name} has been created"
 
-# @profile.route('/profiles/DELETE/<string:name>', methods=["DELETE","GET"])
-@app.route('/profiles/DELETE/<string:name>', methods=["DELETE","GET"])
+@profile.route('/DELETE/<string:name>', methods=["DELETE","GET"])
 def delete_profile(name):
     unwanted_profile_list = list(filter(lambda a: a["name"] == name, datab))
     if unwanted_profile_list !=[]:
@@ -37,8 +33,7 @@ def delete_profile(name):
         return "name does not exist"
 
 
-# @profile.route('/scores/GET/<string:name>/', methods=['GET' , 'POST'])
-@app.route('/scores/GET/<string:name>/', methods=['GET' , 'POST'])
+@profile.route('/scores/GET/<string:name>/', methods=['GET' , 'POST'])
 def get_above_minscore(name):
     minscore = request.args.get('minScore',type=int,default=0)
     score_list = []
@@ -49,7 +44,3 @@ def get_above_minscore(name):
             return score_dict
     if score_list == []:
         return "candidate not found"
-
-
-if __name__ == "__main__":
-    app.run(debug = True)
