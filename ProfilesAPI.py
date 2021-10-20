@@ -15,7 +15,7 @@ def get_profile(name):
         if obj["name"] == str(name):
             GET_profile = {"name" : name , "scores" : obj.get("scores")}
     if GET_profile == {}:
-        return "name does not exist"
+        return "profile does not exist"
     else:
         return GET_profile 
 
@@ -25,6 +25,17 @@ def create_profile(name):
     user_dict ={"name" : name} 
     datab.append(user_dict)
     return f"user {name} has been created"
+
+# @profile.route('/profiles/DELETE/<string:name>', methods=["DELETE","GET"])
+@app.route('/profiles/DELETE/<string:name>', methods=["DELETE","GET"])
+def delete_profile(name):
+    unwanted_profile_list = list(filter(lambda a: a["name"] == name, datab))
+    if unwanted_profile_list !=[]:
+        datab.remove(unwanted_profile_list[0])
+        return f"{name} removed from database"
+    else:
+        return "name does not exist"
+
 
 
 
