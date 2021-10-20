@@ -37,6 +37,18 @@ def delete_profile(name):
         return "name does not exist"
 
 
+# @profile.route('/scores/GET/<string:name>/', methods=['GET' , 'POST'])
+@app.route('/scores/GET/<string:name>/', methods=['GET' , 'POST'])
+def get_above_minscore(name):
+    minscore = request.args.get('minScore',type=int,default=0)
+    score_list = []
+    for obj in datab:
+        if obj["name"] == str(name):
+            score_list = list(filter(lambda a : a > minscore, obj["scores"]))
+            score_dict = {"name":name, "scores": score_list}
+            return score_dict
+    if score_list == []:
+        return "candidate not found"
 
 
 if __name__ == "__main__":
