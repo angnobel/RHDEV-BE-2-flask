@@ -20,12 +20,14 @@ def register_user(username,password):
 
 
 
-
-
-
-
-
-
-# if __name__ == "__main__":
-#     app.run(debug=True)
-
+@auth_api.route('/login/POST/<string:username>/<string:password>/', methods=['POST','GET'])
+def user_login(username,password):
+    passwordhash = hash(password)
+    user_dict = {"username":username, "hashedPassword": passwordhash}
+    match = list(filter(lambda a:a["username"] == username and a["hashedPassword"] ==passwordhash, profile_auth))
+    try:
+        if match[0] == user_dict:
+            token = jwt.encode({"username":username, "hashedPassword": passwordhash}, "secret", algorithm="HS256")
+            return jsonify({"token":token, "message":"success", "status":"200"})
+    except:
+            return jsonify({"message":"failure", "status":"401"})
