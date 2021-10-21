@@ -12,7 +12,7 @@ def get_profile(name):
         if obj["name"] == str(name):
             GET_profile = {"name" : name , "scores" : obj.get("scores")}
     if GET_profile == {}:
-        return jsonify({"message":"failure", "status":"400"})
+        return jsonify({"message":"failure", "status":"401"})
     else:
         return jsonify(GET_profile) 
 
