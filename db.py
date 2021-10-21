@@ -1,5 +1,4 @@
-# Simulated db
-db = [{
+datab = [{
     "name": "Nobel",
     "scores": [1, 2, 3, 4, 5]
 }, {
@@ -9,3 +8,6 @@ db = [{
     "name": "Hui Hui",
     "scores": [9, 29, 34]
 }]
+
+profile_auth = []
+
