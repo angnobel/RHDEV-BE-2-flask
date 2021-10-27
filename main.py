@@ -13,4 +13,7 @@ app.register_blueprint(auth_api, url_prefix="/auth")
 
 @app.route("/")
 def hello_world():
-    return "<p>Welcome to the database!</p>"
+    return "Welcome to the database!"
+
+if __name__ == "__main__":
+    app.run("localhost", port=8000)

@@ -19,10 +19,10 @@ def get_details(id):
     except Exception as e:
         return jsonify({'Status': 'Failed', "Error": e})
 
-@profiles_api.route("/profiles", methods=['POST'])
+@profiles_api.route("/", methods=['POST'])
 def add_details():
     try:
-        name = request.args.get('name')
+        name = request.form.get('name')
         db.append({"name": name})
         return jsonify({"Status": "Success", 'Added': db[-1]})
     except Exception as e:
@@ -31,7 +31,7 @@ def add_details():
 @profiles_api.route("/<int:id>/score", methods=['GET'])
 def get_min_score(id):
     try:
-        min_score = request.args.get('minScore')
+        min_score = request.form.get('minScore')
         display_details = db[id].copy()
         if min_score != None: 
             display_details["scores"] = list(filter(lambda score: score > int(min_score), display_details["scores"]))

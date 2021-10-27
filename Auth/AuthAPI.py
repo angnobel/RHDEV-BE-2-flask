@@ -10,15 +10,15 @@ auth_api = Blueprint("auth", __name__)
 
 @auth_api.route('/register', methods=['POST'])
 def register():
-    username = request.args.get('username')
-    pw = request.args.get('passwordHash')
+    username = request.form.get('username')
+    pw = request.form.get('passwordHash')
     credentials.append({"username": username, "passwordHash": pw})
     return jsonify({'Status': 'Success', 'Message': 'Successfully registered'})
 
 @auth_api.route('/login', methods=['POST'])
 def login():
     try:
-        token = request.args.get('token')
+        token = request.form.get('token')
         if token != None:
             try:
                 user_details = jwt.decode(token, current_app.config['SECRET_KEY'], algorithms="HS256")
@@ -29,8 +29,8 @@ def login():
             else:
                 return jsonify({'Status':'Failed', 'Message': 'Wrong username or password'})
 
-        username = request.args.get('username')
-        pw = request.args.get('passwordHash')
+        username = request.form.get('username')
+        pw = request.form.get('passwordHash')
         user = {
             "username": username,
             "passwordHash": pw
