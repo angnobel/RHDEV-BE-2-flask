@@ -9,3 +9,5 @@ db = [{
     "name": "Hui Hui",
     "scores": [9, 29, 34]
 }]
+
+details = [] #Local array to store newly registered details
