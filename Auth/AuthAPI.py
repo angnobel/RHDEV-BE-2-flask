@@ -16,8 +16,9 @@ myArray = []
 
 @auth_api.route('/register', methods=["POST"])
 def register():
-    username = request.args.get("username")
-    passwordHash = request.args.get("passwordHash")
+    form = request.form
+    username = form["username"]
+    passwordHash = form["passwordHash"]
     myArray.append({
         "username": username,
         "passwordHash": passwordHash
@@ -37,7 +38,7 @@ def register():
     }
 
 
-@auth_api.route('/login', methods=["GET"])
+@auth_api.route('/login', methods=["POST"])
 def login():
     username = request.args.get("username")
     passwordHash = request.args.get("passwordHash")

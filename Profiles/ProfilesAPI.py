@@ -7,7 +7,7 @@ sys.path.append("../")
 profiles_api = Blueprint("profiles", __name__)
 
 
-@profiles_api.route('/profiles', methods=["POST"])
+@profiles_api.route('/', methods=["POST"])
 def addProfile():
     name = request.args.get("name")
     db.append({"name": name})
@@ -18,7 +18,7 @@ def addProfile():
 
 
 @profiles_api.route('/<int:id>', methods=["GET", "DELETE"])
-def getProfile():
+def getProfile(id):
     if request.method == "GET":
         returnData = db[id]
         return jsonify({
@@ -35,7 +35,7 @@ def getProfile():
 
 
 @profiles_api.route('/<int:id>/score', methods=["GET"])
-def getProfileMinScore():
+def getProfileMinScore(id):
     minScore = request.args.get("minScore")
     listOfScores = db[id].get("scores")
     for i in listOfScores:
