@@ -42,7 +42,7 @@
         "Status": "Success"
     }
     ```
-3. POST /profiles/profiles
+3. POST /profiles/
 
     Create a new profile with name only.
 
@@ -57,7 +57,8 @@
     ***
     **Response**: String of Response
     ***
-    **Example**: /profiles/profiles
+    **Example**: /profiles/
+    (form-body) name=Justin
     ```json
     {
         "Added": {
@@ -73,7 +74,7 @@
 
     Delete profile based on id.
 
-    **Function used**: get_details()
+    **Function used**: get_details()  
     **Source**: /**ProfilesAPI.py (line 11)**
     ***
     **Parameters**: None
@@ -113,7 +114,9 @@
     ***
     **Response**: List of scores
     ***
-    **Example**: /profiles/1/score?minScore=3
+    **Example**: /profiles/1/score
+
+    (form-body) minScore=3
     ```json
     {
         "Data": [
@@ -128,7 +131,7 @@
 
     Stores a username and hashedPassword in an array of credentials.
 
-    **Function used**: register()
+    **Function used**: register()  
     **Source**: /**AuthAPI.py (line 12)**
     ***
     **Parameters**:
@@ -143,7 +146,9 @@
     ***
     **Response**: String of response
     ***
-    **Example**: /auth/register?username=justin&passwordHash=abcdefg123
+    **Example**: /auth/register
+    
+    (form-body) username=justin passwordHash=abcdefg123
     ```json
     {
         "Message": "Successfully registered",
@@ -154,7 +159,7 @@
     
     Checks if credentials are of registered users. 
 
-    **Function used**: register()
+    **Function used**: register()  
     **Source**: /**AuthAPI.py (line 19)**
     ***
     **Parameters**:
@@ -173,7 +178,9 @@
     ***
     **Response**: If JWT token is not provided, returns JWT token. In other cases, returns string of response
     ***
-    **Example**: auth/login?username=justin&passwordHash=abcdefg123
+    **Example**: auth/login 
+    
+    (form-body) username=justin passwordHash=abcdefg123
     ```json
     {
         "Status": "Success",
