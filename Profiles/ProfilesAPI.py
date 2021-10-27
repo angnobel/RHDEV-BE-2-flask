@@ -4,7 +4,7 @@ import sys
 from db import db
 sys.path.append("../")
 
-profiles_api = Blueprint("profiles", name)
+profiles_api = Blueprint("profiles", __name__)
 
 @profiles_api.route('/<int:id>/', methods = ["GET"])
 def retrieve(id):
@@ -29,7 +29,7 @@ def postid():
 @profiles_api.route('/<int:id>/', methods = ["DELETE"])
 def deleteid(id):
     if id > len(db)-1:
-        return jsonify({"Status" : "Error", "Message" : "No such ID"})
+        return jsonify({"Status" : "Error", "Message" : "Don't have"})
 
     else:
         deleted = db[id]
@@ -43,14 +43,14 @@ def getabovemin(id):
     if id > len(db)-1:
         return jsonify({"Status" : "Error", "Message" : "No such ID"})
 
-    minscore = request.args.get('minScore')
-    scores = db[id]["scores"]
+    min = request.args.get('minScore')
+    s = db[id]["scores"]
 
-    if minscore == '':
-        return jsonify({"Status" : "Success", "Details" : scores})
+    if min == '':
+        return jsonify({"Status" : "Success", "Details" : s})
     
-    abovemin = list(filter(lambda score: score > int(minscore), scores))#use assig
+    score = list(filter(lambda s: s > int(min), s))#use assig
     
 
-    return jsonify({"Status" : "Success", "Details" : abovemin})
+    return jsonify({"Status" : "Success", "Details" : score})
 

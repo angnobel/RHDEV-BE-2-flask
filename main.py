@@ -7,7 +7,7 @@ from db import db
 # Write your flask code here
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = AUTH_SECRET_KEY
+app.config['SECRET_KEY'] = 'Key1'
 app.register_blueprint(profiles_api, url_prefix="/profiles")
 app.register_blueprint(auth_api, url_prefix="/auth")
 
