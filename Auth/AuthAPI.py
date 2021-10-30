@@ -68,7 +68,7 @@ def login():
         try:
             return check_details(details)
         except Exception:
-            without_token(details)
+            return without_token(details)
     else:
         return without_token(content)
 
