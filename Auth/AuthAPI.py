@@ -50,7 +50,7 @@ def login():
     if exists:
         token = jwt.encode({"userName": userName,"passwordHash": passwordHash}, 
             current_app.config["AUTH_SECRET_KEY"], algorithm="HS256")
-        return json.jsonify{"status": "success", 
-        "token": token}
+        return json.jsonify({"status": "success", 
+        "token": token})
     else:
         return {"status": "fail", "message": "username is wrong"}
