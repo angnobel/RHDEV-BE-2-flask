@@ -68,6 +68,7 @@ def login():
             details = jwt.decode(token, current_app.config['AUTH_SECRET_KEY'], algorithms="HS256")  
             return check_details(details)
         except:
+            details = content
             return without_token(details)
     else:
         return without_token(content)
