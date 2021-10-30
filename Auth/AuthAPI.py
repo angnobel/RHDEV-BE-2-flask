@@ -30,9 +30,9 @@ def register():
 
 @auth_api.route("/login", methods = ["POST"])
 def login():
-    def check_details(jsonobject):
-        userName = jsonobject["userName"]
-        passwordHash = jsonobject["passwordHash"]
+    def check_details(details):
+        userName = details["userName"]
+        passwordHash = details["passwordHash"]
         try:
             #Check for username and password in credentials dictionary
             exists = credentials[userName]["passwordHash"] == passwordHash
@@ -48,7 +48,8 @@ def login():
 
     content = request.get_json()
     token = request.args.get("token")
-    if token == None: #no token provided
+    def without_token(details):
+        #no token provided
         try:
             # Check if username is provided
             userName = content["userName"]
@@ -59,11 +60,16 @@ def login():
             passwordHash = content["passwordHash"]
         except KeyError:
             return {"status": "fail", "message": "no password"}
-        
         return check_details(content)
-    else:
+
+    if token != None:
         #token is provided, let's check the token
         details = jwt.decode(token, current_app.config['AUTH_SECRET_KEY'], algorithms="HS256")
-        return check_details(details)
+        try:
+            return check_details(details)
+        except Exception:
+            without_token(details)
+    else:
+        return without_token(content)
 
 
