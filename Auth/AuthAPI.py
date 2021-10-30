@@ -1,7 +1,7 @@
 # Score API here
 from flask import Blueprint, request, current_app, json
 import sys, jwt
-from db import db
+from db import *
 sys.path.append("../")
 
 auth_api = Blueprint("auth", __name__)
