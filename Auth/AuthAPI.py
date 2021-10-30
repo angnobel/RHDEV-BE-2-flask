@@ -60,7 +60,7 @@ def login():
         except KeyError:
             return {"status": "fail", "message": "no password"}
         
-       return check_details(content)
+        return check_details(content)
     else:
         #token is provided, let's check the token
         details = jwt.decode(token)
