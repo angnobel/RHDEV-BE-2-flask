@@ -26,7 +26,7 @@ def retrieve_profile(userID):
     }
     }
 
-@profiles_api.route("/profiles", methods = ["POST"])
+@profiles_api.route("/", methods = ["POST"])
 def create_profile():
     content = request.get_json()
     content["scores"] = []
@@ -71,4 +71,5 @@ def get_min_score(userID):
     if num_of_scores == 0:
         return {"status": "success", "message": "no scores found"}
 
-    return {"status": "success", "message": {"scores": filtered_score_list}}
+    return {"status": "success", "data": {"scores": filtered_score_list}}
+    
