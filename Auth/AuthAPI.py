@@ -64,8 +64,8 @@ def login():
 
     if token != None:
         #token is provided, let's check the token
-        details = jwt.decode(token, current_app.config['AUTH_SECRET_KEY'], algorithms="HS256")
         try:
+            details = jwt.decode(token, current_app.config['AUTH_SECRET_KEY'], algorithms="HS256")  
             return check_details(details)
         except:
             return without_token(details)
