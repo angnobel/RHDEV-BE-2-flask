@@ -69,7 +69,10 @@ def login():
             return check_details(details)
         except:
             details = content
-            return without_token(details)
+            try:
+                return without_token(details)
+            except:
+                return {"status": "fail", "message": "bad token"}
     else:
         return without_token(content)
 
