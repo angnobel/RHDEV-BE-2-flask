@@ -63,7 +63,7 @@ def login():
         return check_details(content)
     else:
         #token is provided, let's check the token
-        details = jwt.decode(token)
+        details = jwt.decode(token, current_app.config['SECRET_KEY'], algorithms="HS256")
         return check_details(details)
 
 
