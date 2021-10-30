@@ -2,6 +2,7 @@
 from flask import Blueprint, request, current_app, json
 import sys, jwt
 from db import db
+import secret
 sys.path.append("../")
 
 auth_api = Blueprint("auth", __name__)
