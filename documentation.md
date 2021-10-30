@@ -28,7 +28,7 @@ This will register a user. Name of the user has to be supplied. It will initiali
 Function used: create_profile()
 Source: /Profiles/ProfilesAPI.py (Line 29)
 Parameters: none
-Response: Success message
+Response: Status message for the creation of the profile
 Example: /
 {"tatus": "success", "message": "profile added"}
 
@@ -39,7 +39,7 @@ Source: /Profiles/ProfilesAPI.py (Line 37)
 Parameters: 
     userID (required)
         ID of user
-Response: Success message
+Response: Status message for the deletion of the profile
 Example: /profiles/1
 {
     "message": "profile deleted",
@@ -73,18 +73,32 @@ Example: /profiles/0/score?minScore=3
 Authentication API: 
 
 5) POST (auth/register)
-This is a description
-Function used: 
-Source: /Auth/AuthAPI.py (Line X)
-Parameters: userID
-Response: Success message
-Example:
+Registers the user when provided with a JSON containing the name of the user.
+Function used: register()
+Source: /Auth/AuthAPI.py (Line 10)
+Parameters: none
+Response: Status message for the registration of the user
+Example: /auth/register
+{
+    "message": "registered successfully",
+    "status": "success"
+}
 
-6) POST (auth/<int:userID>)
+6) POST (auth/login)
 This is a description
-Function used: 
-Source: /Auth/AuthAPI.py (Line X)
-Parameters: userID
-Response: Success message
-Example:
+Function used: login()
+Source: /Auth/AuthAPI.py (Line 31)
+Parameters: none
+Response: Status message for the login of the user. If successful, token is returned which can be used for logging in without username and password. 
+Example: /auth/login
+{
+    "status": "success",
+    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyTmFtZSI6Im1pbiBoYW4iLCJwYXNzd29yZEhhc2giOiJtaW4gaGFuIn0.yadEYt7XHt9iPffW1YwONh5f5Q928dkhFdxdoMIckOE"
+}
+
+/auth/login?token=sdlkaskdnalsdnsald
+{
+    "message": "bad token",
+    "status": "fail"
+}
 
