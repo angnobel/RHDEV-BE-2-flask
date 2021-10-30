@@ -2,7 +2,6 @@
 from flask import Blueprint, request, current_app, json
 import sys, jwt
 from db import db
-import secret
 sys.path.append("../")
 
 auth_api = Blueprint("auth", __name__)
@@ -21,7 +20,7 @@ def register():
     except KeyError:
         return {"status": "fail", "message": "no password"}
     
-    credentials.append(
+    db.credentials[userName] = (
         {
             "userName": userName,
             "passwordHash": passwordHash
@@ -44,10 +43,10 @@ def login():
         return {"status": "fail", "message": "no password"}
     
     try:
-        #Check for username and password in my dictionary
-        exists = credentials[userName] == passwordHash
+        #Check for username and password in my credentials dictionary
+        exists = db.credentials[userName][passwordHash] == passwordHash
     except KeyError:
-        return {"status": "fail", "message": "password is wrong"}
+        return {"status": "fail", "message": "username or password is wrong"}
     if exists:
         token = jwt.encode({"userName": userName,"passwordHash": passwordHash}, 
             current_app.config["AUTH_SECRET_KEY"], algorithm="HS256")
