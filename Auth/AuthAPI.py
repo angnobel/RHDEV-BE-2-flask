@@ -20,7 +20,7 @@ def register():
     except KeyError:
         return {"status": "fail", "message": "no password"}
     
-    db.credentials[userName] = (
+    credentials[userName] = (
         {
             "userName": userName,
             "passwordHash": passwordHash
@@ -43,8 +43,8 @@ def login():
         return {"status": "fail", "message": "no password"}
     
     try:
-        #Check for username and password in my credentials dictionary
-        exists = db.credentials[userName][passwordHash] == passwordHash
+        #Check for username and password in credentials dictionary
+        exists = credentials[userName][passwordHash] == passwordHash
     except KeyError:
         return {"status": "fail", "message": "username or password is wrong"}
     if exists:
