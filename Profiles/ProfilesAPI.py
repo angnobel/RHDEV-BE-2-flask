@@ -26,7 +26,7 @@ def retrieve_profile(userID):
     }
     }
 
-@profiles_api.route("/profiles", methods = ["POST"])
+@profiles_api.route("/", methods = ["POST"])
 def create_profile():
     content = request.get_json()
     content["scores"] = []
