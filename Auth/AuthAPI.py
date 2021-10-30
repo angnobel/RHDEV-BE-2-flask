@@ -44,7 +44,7 @@ def login():
     
     try:
         #Check for username and password in credentials dictionary
-        exists = credentials[userName][passwordHash] == passwordHash
+        exists = credentials[userName]["passwordHash"] == passwordHash
     except KeyError:
         return {"status": "fail", "message": "username or password is wrong"}
     if exists:
