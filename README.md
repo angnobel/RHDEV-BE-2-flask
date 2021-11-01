@@ -4,8 +4,9 @@ Homewwork template for BE training lesson 2: Flask and web servers
 Setup a basic API to simulate a website that tracks profiles and scores for exams
 
 A simulated db is provided. Note that the db will not be updated between runs
-    In main:
+    In main: (DONE)
 GET / homepage that returns a welcome message
+
     In profiles API (/profiles prefix)
 GET /{id} to retrieve the name and all scores of a profile
 POST /profiles to create a new profile (name only)
