@@ -1,4 +1,4 @@
-1)/GET/
+1)/
 
 description:returns welcome message
 
@@ -15,7 +15,7 @@ eg: Welcome!
 
 
 
-2)/profiles/GET/<string:name>/
+2)/profiles/<string:name>/
 
 returns the dictionary of the name and score that matches the name provided in the url
 
@@ -36,7 +36,7 @@ eg: returns when <string:name> is replaced with Richard
 
 
 
-3)/profiles/POST/<string:name>/
+3)/profiles/<string:name>/
 
 creates a dictionary of name and empty list of score and stores it in db.py
 
@@ -53,7 +53,7 @@ eg: {"message":"success", "status":"200"}
 
 
 
-4)/profiles/DELETE/<string:name>
+4)/profiles/<string:name>
 delete the dictionary that contains the name specified by user
 
 function:delete_profile(name)
@@ -69,7 +69,7 @@ eg: if there are no dictionaries deleted, {"message":"failure", "status":"400"} 
 
 
 
-5)/profiles/scores/GET/<string:name>/
+5)/profiles/scores/<string:name>/
 
 return the specified name and scores above the specified minimum score
 
@@ -89,7 +89,7 @@ eg: successful response             failed response
 
 
 
-6)/auth/register/POST/<string:username>/<string:password>/
+6)/auth/register/<string:username>/<string:password>/
 adds a user name and hashed password to database
 
 function: register_user(username,password)
@@ -103,7 +103,7 @@ Response: if there is a password entered, it returns a success message; otherwis
 eg: successful response                     failed response
 {"message":"success", "status":"200"}       {"message":"failure", "status":"400"}
 
-7)/login/POST/<string:username>/<string:password>/
+7)/login/<string:username>/<string:password>/
 match the username and password to a pre-existing username and password in the database, if there is a match, return a token and a success message. Otherwise return a failed message.
 
 function: user_login(username,password)

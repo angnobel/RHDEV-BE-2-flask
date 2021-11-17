@@ -8,7 +8,7 @@ app.register_blueprint(profile, url_prefix="/profiles")
 app.register_blueprint(auth_api, url_prefix="/auth")
 
 
-@app.route('/GET/', methods=['GET'])
+@app.route('/', methods=['GET'])
 def welcome():
     return 'welcome!'
 

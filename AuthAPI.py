@@ -8,7 +8,7 @@ from db import profile_auth
 auth_api = Blueprint('auth_api',__name__,url_prefix='/auth')
 
 
-@auth_api.route('/register/POST/<string:username>/<string:password>/', methods=['POST','GET'])
+@auth_api.route('/register/<string:username>/<string:password>/', methods=['POST','GET'])
 def register_user(username,password):
     passwordhash = hash(password)
     user_dict = {"username":username, "hashedPassword": passwordhash}
@@ -20,7 +20,7 @@ def register_user(username,password):
 
 
 
-@auth_api.route('/login/POST/<string:username>/<string:password>/', methods=['POST','GET'])
+@auth_api.route('/login/<string:username>/<string:password>/', methods=['POST','GET'])
 def user_login(username,password):
     passwordhash = hash(password)
     user_dict = {"username":username, "hashedPassword": passwordhash}

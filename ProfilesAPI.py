@@ -5,7 +5,7 @@ from db import datab
 profile = Blueprint('profile',__name__,url_prefix='/profiles')
 
 
-@profile.route('/GET/<string:name>/', methods=['GET'])
+@profile.route('/<string:name>/', methods=['GET'])
 def get_profile(name):
     GET_profile = {}
     for obj in datab:
@@ -16,13 +16,13 @@ def get_profile(name):
     else:
         return jsonify(GET_profile) 
 
-@profile.route('/POST/<string:name>/', methods=["POST","GET"])
+@profile.route('/<string:name>/', methods=["POST","GET"])
 def create_profile(name):
     user_dict ={"name" : name,"scores": []} 
     datab.append(user_dict)
     return jsonify({"message":"success", "status":"200"})
 
-@profile.route('/DELETE/<string:name>/', methods=["DELETE","GET"])
+@profile.route('/<string:name>/', methods=["DELETE","GET"])
 def delete_profile(name):
     unwanted_profile_list = list(filter(lambda a: a["name"] == name, datab))
     if unwanted_profile_list !=[]:
@@ -32,7 +32,7 @@ def delete_profile(name):
         return jsonify({"message":"failure", "status":"400"})
 
 
-@profile.route('/scores/GET/<string:name>/', methods=['GET' , 'POST'])
+@profile.route('/scores/<string:name>/', methods=['GET' , 'POST'])
 def get_above_minscore(name):
     minscore = request.args.get('minScore',type=int,default=0)
     score_list = []
