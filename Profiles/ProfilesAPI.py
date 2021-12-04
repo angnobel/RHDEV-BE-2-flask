@@ -13,7 +13,7 @@ def getProfile(id):
     except IndexError:
         return jsonify({"status": "fail", "message": "Profile not found."})
         
-    return jsonify({"status": "success", "data": profile})
+    return jsonify({"status": "success", "profile": profile})
 
 
 @profiles_api.route('/profiles', methods=["POST"])
