@@ -21,7 +21,8 @@ app.register_blueprint(profiles_api, url_prefix="/profiles")
 app.register_blueprint(auth_api, url_prefix="/auth")
 
 if __name__ == "__main__":
-    app.run("localhost", port=1313)
+    app.run("localhost", port=8080)
 
-    http_server = WSGIServer(("localhost", 1313), app)
-    http_server.serve_forever()
+   # Production
+   # http_server = WSGIServer(("0.0.0.0", 8080), app)
+   # http_server.serve_forever()
