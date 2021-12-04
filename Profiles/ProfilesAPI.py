@@ -7,15 +7,21 @@ sys.path.append("../")
 profiles_api = Blueprint("profiles", __name__)
 
 @profiles_api.route('/<int:id>', methods=["GET"])
-def getProfile():
-    NameScore = db[id]
-    return jsonify({"message": "SUCCESS", "data": NameScore}), 200
+def getProfile(id):
+    try:
+        profile = db[id]
+    except IndexError:
+        return jsonify({"status": "fail", "message": "Profile not found."})
+        
+    return jsonify({"status": "success", "data": profile})
+
 
 @profiles_api.route('/profiles', methods=["POST"])
 def addProfile():
-    name = request.args.get("name")
+    name = request.form()
     db.append({"name": name})
     return jsonify({"message": "SUCCESS"}), 200
+
 
 @profiles_api.route('/<int:id>', methods=["DELETE"])
 def deleteProfile():
