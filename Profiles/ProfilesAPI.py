@@ -34,16 +34,26 @@ def deleteProfile():
     del profile
     return jsonify({"message": "SUCCESS", "message": "Profile deleted."})
 
-@profiles_api.route('/<int:id>/score?minScore=', methods=["GET"])
+@profiles_api.route('/<int:id>/score', methods=["GET"])
 def getMinScore():
+    try:
+        profile = db[id]
+    except IndexError:
+        return jsonify({"status": "fail", "message": "Profile not found."})
+
     minScore = request.args.get("minScore")
-    ScoreList = db[id].get("scores")
+    ScoreList = profile.get("scores")
+    if minScore == None:
+        minScore == 0
+    else:
+         minScore == int(minScore)
+
     def aboveMinScore(i):
         if i >= minScore:
             return i
     
     ScoresAboveMin = list(filter(aboveMinScore, ScoreList))
 
-    return jsonify({"message": "SUCCESS", "data": ScoresAboveMin}), 200
+    return jsonify({"status": "success", "scores": ScoresAboveMin})
             
 
