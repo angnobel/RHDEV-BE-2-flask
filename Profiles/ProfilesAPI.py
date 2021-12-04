@@ -16,7 +16,7 @@ def getProfile(id):
     return jsonify({"status": "success", "profile": profile})
 
 
-@profiles_api.route('/profiles', methods=["POST"])
+@profiles_api.route('/', methods=["POST"])
 def addProfile():
     newProfile = request.get_json()
     newProfile["scores"] = []
