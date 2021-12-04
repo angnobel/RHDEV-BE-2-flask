@@ -154,7 +154,7 @@
 
    - **Function used:** Register()
 
-   - **Source:** /Auth/AuthAPI.py (Line )
+   - **Source:** /Auth/AuthAPI.py (Line 13)
 
    - **Parameter(s):** None
 
@@ -202,7 +202,7 @@
 
    - **Function used:** Login()
 
-   - **Source:** /Auth/AuthAPI.py (Line )
+   - **Source:** /Auth/AuthAPI.py (Line 33)
 
    - **Parameter(s):** None
 
