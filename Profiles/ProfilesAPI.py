@@ -18,9 +18,10 @@ def getProfile(id):
 
 @profiles_api.route('/profiles', methods=["POST"])
 def addProfile():
-    name = request.form()
-    db.append({"name": name})
-    return jsonify({"message": "SUCCESS"}), 200
+    newProfile = request.get_json()
+    newProfile["scores"] = []
+    db.append(newProfile)
+    return jsonify({"status": "success", "message": "New profile added."})
 
 
 @profiles_api.route('/<int:id>', methods=["DELETE"])
