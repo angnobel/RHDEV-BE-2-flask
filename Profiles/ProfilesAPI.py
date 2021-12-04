@@ -21,7 +21,6 @@ def addProfile():
     newProfile = request.get_json()
     newProfile["scores"] = []
     db.append(newProfile)
-    name = newProfile["name"]
     return jsonify({"status": "success", "message": "New profile added."})
 
 
