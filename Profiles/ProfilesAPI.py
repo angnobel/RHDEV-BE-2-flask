@@ -26,9 +26,13 @@ def addProfile():
 
 @profiles_api.route('/<int:id>', methods=["DELETE"])
 def deleteProfile():
-    NameScore = db[id]
-    del NameScore
-    return jsonify({"message": "SUCCESS", "data": NameScore}), 200
+    try:
+        profile = db[id]
+    except IndexError:
+        return jsonify({"status": "fail", "message": "Profile not found."})
+    
+    del profile
+    return jsonify({"message": "SUCCESS", "message": "Profile deleted."})
 
 @profiles_api.route('/<int:id>/score?minScore=', methods=["GET"])
 def getMinScore():
