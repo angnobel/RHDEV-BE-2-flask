@@ -12,7 +12,7 @@ def getProfile(id):
         profile = db[id]
     except IndexError:
         return jsonify({"status": "fail", "message": "Profile not found."})
-        
+
     return jsonify({"status": "success", "profile": profile})
 
 
@@ -21,6 +21,7 @@ def addProfile():
     newProfile = request.get_json()
     newProfile["scores"] = []
     db.append(newProfile)
+    name = newProfile["name"]
     return jsonify({"status": "success", "message": "New profile added."})
 
 
@@ -31,8 +32,8 @@ def deleteProfile():
     except IndexError:
         return jsonify({"status": "fail", "message": "Profile not found."})
     
-    del profile
-    return jsonify({"message": "SUCCESS", "message": "Profile deleted."})
+    db.pop(id)
+    return jsonify({"message": "success", "message": "Profile deleted."})
 
 @profiles_api.route('/<int:id>/score', methods=["GET"])
 def getMinScore():
