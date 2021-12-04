@@ -1,59 +1,75 @@
 # Score API here
 from flask import Blueprint, request, current_app, json, jsonify
-import sys
+import sys, jwt
+from creds import *
 from db import db
-import pyjwt
 sys.path.append("../")
 
 auth_api = Blueprint("auth", __name__)
 
 credsArray = []
-username = request.arg.get("username")
-passwordHash = request.arg.get("passwordHash")
-token = jwt.encode({'userID': username, 'passwordHash': passwordHash}, current_app.config['SECRET_KEY'], algorithm="HS256")
+secretkey = current_app.config['SECRET_KEY']
 
 @auth_api.route('/register', methods=["POST"])
-def storeCredentials():
-    credsArray.append({"username": username, "passwordHash": passwordHash})
-    return jsonify({"message": "SUCCESS", "data": {"username": username, "hashedPassword": hashedPassword}}), 200 
+def Register():
+    newCred = request.get_json()
+    # check if username is provided
+    try:
+        username = newCred["username"]
+    except KeyError:
+        return jsonify({"status": "fail", "message": "No username."})
+  
+    # check if password is provided
+    try:
+       passwordHash =  newCred["passwordHash"]
+    except KeyError:
+        return jsonify({"status": "fail", "message": "No password."})
+
+    credsArray.append(newCred)
+
+    return jsonify({"status": "success", "message": "Credentials successfully registered."}), 200
 
 
-@auth_api.route('/login', methods=["GET"])
-def loginSuccess():
-    testUser = {"username": username, "passwordHash": passwordHash}
-    if (testUser in credsArray):
-            token
-            return jsonify({"message": "success", "token": token}), 200
+@auth_api.route('/login', methods=["POST"])
+def Login():
+    def checkCred(givenCred):
+        # check if username is provided
+        try:
+            username = givenCred["username"]
+        except KeyError:
+            return jsonify({"status": "fail", "message": "No username."})
+
+        # check if password is provided
+        try:
+            passwordHash = givenCred["passwordHash"]
+        except KeyError:
+            return jsonify({"status": "fail", "message": "No password."})
+        for i in credsArray:
+            if (username == i["username"] and passwordHash == i["passwordHash"]):
+                token = jwt.encode({"userID": username, "passwordHash": passwordHash}, secretkey, algorithm="HS256")
+                return jsonify({"status": "success", "token": token}), 200
+            else:
+                return jsonify({"status": "fail", "message": "Authentication failed."}), 401
     
-    elif (not(testUser in credsArray)):
-            return jsonify({"message": "failed"}), 401
+    givenCred = request.get_json()
+    token = request.arg.get("token")
 
-    
-
-try: 
-    username
-    passwordHash
-except ValueError:
-    print("No username or password input.")
-except:
-    print("An error occurred.")
-
-@auth_api.route('/login', methods=["GET"])
-def authToken():
-    testtoken = request.arg.get("token")
-    data = jwt.decode(token, current_app.config['SECRET_KEY'], algorithms=["HS256"])
-    if (testtoken == "sdlkaskdnalsdnsald"):
-        if (data in credsArray):
-            return jsonify({"message": "success"}), 200
-        elif (not(data in credsArray)):
-            return jsonify({"message": "failed"}), 401
-
-    elif (not(testtoken == "sdlkaskdnalsdnsald")):
-            return jsonify({"message": "failed"}), 401
-    
-    currentUser = credsArray.User.find_one({'userID': data['userID'], 'passwordHash': data['passwordHash']})
-    
-jsonify({'token': token}), 200
+   
+    def checkToken():
+       if (token != None):
+         try:
+            data = jwt.decode(token, secretkey, algorithm=["HS256"])
+            return checkCred(data)
+         except:
+            data = givenCred
+            try:
+                return checkToken(data)
+            except:
+                return jsonify({"status": "fail", "message": "Bad token"})
+        
+        # no token provided in URL argument (fresh login)
+       elif (token == None):
+            return checkCred(givenCred)
 
 
 
