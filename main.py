@@ -10,8 +10,6 @@ from gevent.pywsgi import WSGIServer
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = AUTH_SECRET_KEY
-app.config['PASSWORD_RESET_SECRET'] = AUTH_PASSWORD_RESET_SECRET
-app.config['USERNAME'] = DB_USERNAME
 
 @app.route("/", methods=["GET"])
 def homepage():
