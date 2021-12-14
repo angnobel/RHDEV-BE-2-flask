@@ -13,7 +13,7 @@ auth_api = Blueprint("auth", __name__)
 
 @auth_api.route("/register", methods=["POST"])
 def register():
-
+    data = None
     try:
         if request.form.get("username") != None:
             data = request.form

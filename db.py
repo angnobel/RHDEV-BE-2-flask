@@ -15,7 +15,6 @@ db = [{
 
 credentials = []
 
-auth_secret_key = "425j2jkjdjfk3*38bjb3#*@!)Buibidj2j90$(Tbuiwurbirbjkkjbfkjadkjsf"
 
 
 

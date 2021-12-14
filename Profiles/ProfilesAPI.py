@@ -16,7 +16,7 @@ def get_id(id):
         return jsonify({"status": "error"})
 
 
-@profiles_api.route("/create_profile", methods=["POST"])
+@profiles_api.route("/register", methods=["POST"])
 def add_new_profile():
     try:
         data = request.form
