@@ -9,3 +9,8 @@ db = [{
     "name": "Hui Hui",
     "scores": [9, 29, 34]
 }]
+
+#############################
+#  DB to store login info   #
+#############################
+userInformation = []
