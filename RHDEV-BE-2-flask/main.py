@@ -1,4 +1,7 @@
 from flask import Flask
+from Profiles.ProfilesAPI import profiles_api
+from db import db
+from Auth.AuthAPI import auth_api
 app = Flask(__name__)
 
 
@@ -12,9 +15,8 @@ def welcome():
 ################################
 #       2. id endpoint         #
 ################################
-from Profiles.ProfilesAPI import profiles_api
 app.register_blueprint(profiles_api, url_prefix="/profiles")
-
+app.register_blueprint(auth_api, url_prefix="/auth")
 
 ################################
 #   3. Used to run webpages    #
@@ -24,11 +26,9 @@ if __name__ == "__main__":
 
 
 
-from Auth.AuthAPI import auth_api
-from db import db
-app.register_blueprint(auth_api, url_prefix="/auth")
 
-# Write your flask code here
+
+
 
 
 
