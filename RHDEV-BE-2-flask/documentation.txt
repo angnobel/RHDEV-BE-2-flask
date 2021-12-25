@@ -1,0 +1,54 @@
+1) GET /homepage
+
+Function Used: welcome()
+Source: main.py
+Parameters: NIL
+Response: Welcome message
+
+2(a). GET /profiles/{studentID}
+
+Function Used: retrieveStatus()
+Source: ProfilesAPI.py
+Parameters: studentID
+Response: The name and the score of the students. If ID invalid, returns invalid ID
+
+2(b). DELETE /profiles/{studentID}
+
+Function Used: retrieveStatus()
+Source: ProfilesAPI.py
+Parameters: studentID
+Response: Deletes the profile of the student. If ID invalid, returns invalid ID.
+
+3. POST /profiles
+
+Function Used: newProfile()
+Source: ProfilesAPI.py
+Parameters: name
+Response: Creates a new profile with the name only. If there is an issue, throw back
+the error
+
+4. GET /<int:studentID>/score?minScore=
+
+Function Used: minimum()
+Source: ProfilesAPI.py
+Parameters: studentID
+Response: Retrieve all scores of a profile, above the min score. If min score not provided, 
+return all scores. If student ID is invalid, throw back an error.
+
+5. POST /register
+
+Function Used: register()
+Source: AuthAPI.py
+Parameters: username, passwordHash
+Response: Registers the user into the database in db.py under userInformation.
+
+6. POST /login
+
+Function Used: login()
+Source: AuthAPI.py
+Parameters: username, passwordHash
+Response: 1st sees if JWT token is valid. If invalid, sees if username and passwordHash
+are valid. If all fail, return login error.
+
+I am not sure why there is an import error but the idea is basically there. Do let me know if 
+Corrections are needed.
